@@ -16,5 +16,6 @@ export const fetchData = async(url)=>{
     return data
   }catch(error){
     console.error('error fetching api data:' , error)
+    throw error
   }
 }

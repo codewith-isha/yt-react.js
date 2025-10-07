@@ -153,7 +153,6 @@ function Sidebar() {
       icon: <SiYoutubekids />,
     },
   ];
-
   return (
     <div className="px-6 w-[15%]">
       <div className="space-y-3 items-center">
@@ -175,66 +174,71 @@ function Sidebar() {
       <div className="mt-4 space-y-3 items-center">
         <div className="flex items-center space-x-2">
           <h1>You</h1>
-          <FaChevronRight/>
+          <FaChevronRight />
         </div>
-        {sidebarItems2.map((item)=>{
-          return(
-            <div key={item.id}
-            className="flex items-center space-x-6 hover:bg-gray-300 duration-300 rounded-xl p-1">
+        {sidebarItems2.map((item) => {
+          return (
+            <div
+              key={item.id}
+              className="flex items-center space-x-6 hover:bg-gray-300 duration-300 rounded-xl p-1"
+            >
               <div className="text-xl cursor-pointer">{item.icon}</div>
               <span className="cursor-pointer">{item.name}</span>
             </div>
-          )
+          );
         })}
       </div>
       <br />
       <hr />
-
       {/* explore */}
-
-
       <div className="mt-4 space-y-3 items-center">
         <div className="flex items-center space-x-2">
           <h1>You</h1>
-          <FaChevronRight/>
+          <FaChevronRight />
         </div>
-        {sidebarItems3.map((item)=>{
-          return(
-            <div key={item.id}
-            className="flex items-center space-x-6 hover:bg-gray-300 duration-300 rounded-xl p-1">
+        {sidebarItems3.map((item) => {
+          return (
+            <div
+              key={item.id}
+              className="flex items-center space-x-6 hover:bg-gray-300 duration-300 rounded-xl p-1"
+            >
               <div className="text-xl cursor-pointer">{item.icon}</div>
               <span className="cursor-pointer">{item.name}</span>
             </div>
-          )
+          );
         })}
       </div>
       <br />
       <hr />
-
       {/* more Section  */}
-      
       <div className="mt-4 space-y-3 items-center">
         <div className="flex items-center space-x-2">
           <h1>You</h1>
-          <FaChevronRight/>
+          <FaChevronRight />
         </div>
-        {sidebarItems4.map((item)=>{
-          return(
-            <div key={item.id}
-            className="flex items-center space-x-6 hover:bg-gray-300 duration-300 rounded-xl p-1">
+        {sidebarItems4.map((item) => {
+          return (
+            <div
+              key={item.id}
+              className="flex items-center space-x-6 hover:bg-gray-300 duration-300 rounded-xl p-1"
+            >
               <div className="text-xl cursor-pointer">{item.icon}</div>
               <span className="cursor-pointer">{item.name}</span>
             </div>
-          )
+          );
         })}
-         <hr />
+        <hr />
       </div>
       <br />
       <span className="text-xs text-gray-600 font-semibold">
-        About Press Coplyright <br/>Contact us Creators <br/>Advertise Developers <br/>
-        <p className="mt-3">Terms Privacy Policy & Safety</p>How Youtube works{" "}<br/>Test new features
+        About Press Coplyright <br />
+        Contact us Creators <br />
+        Advertise Developers <br />
+        <p className="mt-3">Terms Privacy Policy & Safety</p>How Youtube works{" "}
+        <br />
+        Test new features
       </span>
-      <br/>
+      <br />
       <p className="text-xs text-gray-500 mt-3">@ 2024 Learn Isha</p>
     </div>
   );
