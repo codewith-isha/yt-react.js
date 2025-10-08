@@ -12,13 +12,24 @@ export  default function AuthProvider({children}){
     fetchAlldata(value)
    },[value])
 
-   const fetchAlldata = (query) => {
+   const fetchAlldata = async(query) => {
     setLoading(true)
-    fetchData(`search/?q=${query}`).then((contents)=>{
-      setData(contents)
+    try{
+      const contents = await fetchData(`search/?q=${query}`)
+      console.log(`Fetched contents:`,contents)
+
+      setData(
+        contents?.data?.contents||
+        contents?.items||
+        []
+      )
+    }catch(error){
+      console.error(`Error fecthing data`,error)
+      setData([])
+    }finally{
       setLoading(false)
-    })
-   }
+    }
+  }
    return(
     <AuthContext.Provider value={{loading,data,value,setValue}}>
       {children}

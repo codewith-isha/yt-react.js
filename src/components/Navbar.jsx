@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Avatar from 'react-avatar';
 import { IoMenu } from "react-icons/io5";
 import logo from '../assets/logo.png'
@@ -7,8 +7,19 @@ import { IoMdMic } from "react-icons/io";
 import { RiVideoAddFill } from "react-icons/ri";
 import { AiFillBell } from "react-icons/ai";
 import profile from '../assets/profile.jpg'
+import { useNavigate } from 'react-router-dom';
 
-const Navbar = () => {
+function Navbar(){
+  const [searchQuery , setSearchQuery] = useState("")
+    const navigate = useNavigate()
+    const searchQueryHandler = (event)=>{
+      if( (event?.key === "Enter" || event === "searchButton") &&
+      searchQuery?.length > 0
+    ){
+       navigate(`/search/${searchQuery}`);
+      setSearchQuery("");
+    }
+    }
   return (
     <div className='flex justify-between fixed top-0 w-[100%] bg-white px-6 py-2'>
       <div className='space-x-4 flex items-center' >
