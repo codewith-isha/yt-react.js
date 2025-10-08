@@ -44,7 +44,7 @@ function Navbar(){
       <div className='flex space-x-5 items-center '>
         <RiVideoAddFill  className='text-2xl'/>
         <AiFillBell  className='text-2xl'/>
-          <Avatar src={profile} alt="profile"  size='32' round={true}/>
+          <Avatar  alt="profile"  size='32' round={true}/>
       </div>
     </div>
   )

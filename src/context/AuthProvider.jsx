@@ -21,6 +21,8 @@ export  default function AuthProvider({children}){
       setData(
         contents?.data?.contents||
         contents?.items||
+         contents?.contents ||       
+        contents?.items || 
         []
       )
     }catch(error){

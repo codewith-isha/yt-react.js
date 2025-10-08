@@ -3,8 +3,12 @@ import React from "react";
 function Loading() {
   return (
     <div>
-      <span className="flex items-center justify-center h-screen text-3xl">
-        ...
+     <span className="flex items-center justify-center h-screen">
+        <div
+          className="spinner-border text-red-600"
+          style={{ width: "3rem", height: "3rem" }}
+          role="status"
+        ></div>
       </span>
     </div>
   );

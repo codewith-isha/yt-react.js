@@ -14,10 +14,21 @@ const Home = () => {
       <div className='h-[calc(100vh-6.625rem)] overflow-y-scroll overflow-x-hidden'>
         <ListItems/>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-5'>
-          {!loading && Array.isArray(data)&&data.map((item)=>{
-            if(item.type !== "video") return null
-            return<Video key={item.id} video={item?.video}/>
-          })}
+           {Array.isArray(data) &&
+              data.map((item, index) => {
+                // Log to inspect the structure
+                console.log("Video item:", item);
+
+                // ✅ Adjust depending on your API structure
+                const video = item.video || item; // fallback if no 'video' field
+
+                return (
+                  <Video
+                    key={video?.videoId || video?.id || index}
+                    video={video}
+                  />
+                );
+              })}
         </div>
       </div>
     </div>

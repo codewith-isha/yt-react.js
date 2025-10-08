@@ -1,4 +1,5 @@
 import React from "react";
+import "../components/Sidebar.css"
 import { GoHome } from "react-icons/go";
 import { SiYoutubeshorts } from "react-icons/si";
 import { MdOutlineSubscriptions, MdHistory } from "react-icons/md";
@@ -154,7 +155,7 @@ function Sidebar() {
     },
   ];
   return (
-    <div className="px-6 w-[15%]">
+    <div className="px-6 w-[40%] h-[calc(100vh-6.625rem)] overflow-y-scroll overflow-x-hidden sidebarDiv">
       <div className="space-y-3 items-center">
         {sidebarItems.map((item) => {
           return (

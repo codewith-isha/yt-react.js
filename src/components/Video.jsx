@@ -5,17 +5,35 @@ import { BsFillCheckCircleFill } from "react-icons/bs";
 import { abbreviateNumber } from "js-abbreviation-number";
 
 function Video({ video }) {
-  console.log(video);
+ if(!video) return null;
+
+//  const thumbnail = 
+//  video?.thumbnails?.[0]?.url ||
+//  video?.movingThumbnails?.[0].url||
+//  "https://via.placeholder.com/300x200?text=No+Thumbnail";
+//   const avatar =
+//     video?.author?.avatar?.[0]?.url ||
+//     "https://via.placeholder.com/50?text=No+Avatar";
+
+//   const title = video?.title || "Untitled Video";
+//   const authorTitle = video?.author?.title || "Unknown Channel";
+//   const isVerified = video?.author?.badges?.[0]?.type === "VERIFIED_CHANNEL";
+//   const views = video?.stats?.views || 0;
+//   const publishedTime = video?.publishedTimeText || "Some time ago";
 
   return (
     <div className="">
-      <Link to={`/video/${video?.videoId}`}>
+      <Link to={`/video/${video?.videoId || video?.video?.videoId || video?.id?.videoId}`}>
         <div className="flex flex-col">
           {/* thumbnail & duration */}
           <div className="relative h-48 md:h-56 md: rounded-xl hover:rounded-none duration-200 overflow-hidden">
             <img
               className="h-full w-full"
-              src={video?.thumbnails[0]?.url}
+              src={
+                video?.thumbnails?.[0]?.url||
+               video?.movingThumbnails?.[0]?.url ||
+                "https://via.placeholder.com/300x200?text=No+Thumbnail"
+              }
               alt=""
             />
             {video?.lengthSeconds && <Time time={video?.lengthSeconds} />}
