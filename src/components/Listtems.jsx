@@ -1,5 +1,9 @@
-function ListItems(){
-  const categories =[
+import React, { useState } from "react";
+
+function ListItems() {
+  const [activeCategory, setActiveCategory] = useState("All");
+
+  const categories = [
     "All",
     "Music",
     "React Routers",
@@ -10,28 +14,36 @@ function ListItems(){
     "News",
     "Mixes",
     "1990s",
-    "Telegu Cinema",
+    "Telugu Cinema",
     "Live",
     "Dramedy",
     "Dubbing",
-    "Indian soap Opera",
-    "Criket",
+    "Indian Soap Opera",
+    "Cricket",
     "Football",
-    "Learn Coding"
-  ]
+    "Learn Coding",
+  ];
+
   return (
-    <div className="flex overflow-x-scroll hide-scroll-bar px-4">
-      <div className="flex space-x-4 flex-nowrap">
-        {categories.map((category)=>{
-          return(
-            <div key={category}
-            className="mb-4 flex-none bg-gray-200 hover:bg-gray-300 duration-300 rounded-xl px-4 py-2 font-medium text-gray-700 cursor-pointer">
-              {category}
-            </div>
-          )
-        })}
+    <div className="w-full bg-[#f9f9f9] dark:bg-[#0f0f0f] overflow-x-auto no-scrollbar">
+      <div className="flex space-x-3 px-4 py-3">
+        {categories.map((category) => (
+          <button
+            key={category}
+            onClick={() => setActiveCategory(category)}
+            className={`flex-none px-4 py-1.5 rounded-lg text-sm font-medium transition-colors duration-200 
+              ${
+                activeCategory === category
+                  ? "bg-gray-900 text-white dark:bg-white dark:text-black"
+                  : "bg-gray-200 dark:bg-[#222] text-gray-800 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-[#333]"
+              }`}
+          >
+            {category}
+          </button>
+        ))}
       </div>
     </div>
-  )
+  );
 }
-export default ListItems
+
+export default ListItems;

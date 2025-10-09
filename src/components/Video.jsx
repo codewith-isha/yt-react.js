@@ -17,57 +17,65 @@ function Video({ video }) {
 
   const title = snippet?.title ?? "Untitled Video";
   const channelTitle = snippet?.channelTitle ?? "Unknown Channel";
-  const views = statistics?.viewCount || 0;
+  const views = statistics?.viewCount || null;
   const publishedAt = snippet?.publishedAt
-    ? new Date(snippet.publishedAt).toDateString()
+    ? new Date(snippet.publishedAt).toLocaleDateString(undefined, {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      })
     : "Some time ago";
 
   return (
-    <div>
-      <Link to={`/video/${videoId}`}>
-        <div className="flex flex-col">
-          <div className="relative h-48 md:h-56 rounded-xl hover:rounded-none duration-200 overflow-hidden">
-            <img
-              className="h-full w-full object-cover"
-              src={thumbnail}
-              alt={title}
-              onError={(e) => {
-                e.target.src =
-                  "https://via.placeholder.com/300x200.png?text=No+Thumbnail";
-              }}
-            />
-            {video.contentDetails?.duration && (
-              <Time time={video.contentDetails.duration} />
-            )}
-          </div>
+    <Link to={`/video/${videoId}`} className="group w-full">
+      {/* Thumbnail */}
+      <div className="relative w-full overflow-hidden rounded-xl group-hover:rounded-2xl transition-all duration-300">
+        <img
+          src={thumbnail}
+          alt={title}
+          className="w-full h-48 md:h-56 object-cover"
+          onError={(e) => {
+            e.target.src =
+              "https://via.placeholder.com/300x200.png?text=No+Thumbnail";
+          }}
+        />
+        {video.contentDetails?.duration && (
+          <Time time={video.contentDetails.duration} />
+        )}
+      </div>
 
-          <div className="flex mt-3 space-x-2">
-            <div className="flex h-9 w-9 rounded-full overflow-hidden border bg-gray-200">
-              <img
-                className="h-full w-full object-cover"
-                src={`https://ui-avatars.com/api/?name=${encodeURIComponent(
-                  channelTitle
-                )}&background=random`}
-                alt={channelTitle}
-              />
-            </div>
-
-            <div>
-              <span className="text-sm font-bold line-clamp-2">{title}</span>
-              <span className="flex items-center font-semibold mt-2 text-[12px] text-gray-600">
-                {channelTitle}
-                <BsFillCheckCircleFill className="text-gray-600 ml-1 text-[12px]" />
-              </span>
-              <div className="flex text-gray-500 text-[12px]">
-                <span>{`${abbreviateNumber(views, 2)} views`}</span>
-                <span className="flex text-[24px] leading-none font-bold relative top-[-10px] mx-1">·</span>
-                <span>{publishedAt}</span>
-              </div>
-            </div>
-          </div>
+      {/* Video Info */}
+      <div className="flex mt-3 space-x-3">
+        {/* Channel Avatar */}
+        <div className="flex-shrink-0 h-10 w-10 rounded-full overflow-hidden bg-gray-200 dark:bg-[#222]">
+          <img
+            src={`https://ui-avatars.com/api/?name=${encodeURIComponent(
+              channelTitle
+            )}&background=random`}
+            alt={channelTitle}
+            className="h-full w-full object-cover"
+          />
         </div>
-      </Link>
-    </div>
+
+        {/* Text Info */}
+        <div className="flex-1 flex flex-col justify-between">
+          <h3 className="text-sm md:text-base font-semibold line-clamp-2 text-gray-900 dark:text-gray-100">
+            {title}
+          </h3>
+
+          <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400 flex items-center mt-1">
+            {channelTitle}
+            <BsFillCheckCircleFill className="ml-1 text-[10px] md:text-[12px]" />
+          </p>
+
+          {views && (
+            <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 mt-1">
+              {`${abbreviateNumber(views, 2)} views · ${publishedAt}`}
+            </p>
+          )}
+        </div>
+      </div>
+    </Link>
   );
 }
 

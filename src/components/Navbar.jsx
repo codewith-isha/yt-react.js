@@ -8,7 +8,7 @@ import { AiFillBell } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 
-function Navbar() {
+function Navbar({ onToggleSidebar }) {
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
 
@@ -23,48 +23,60 @@ function Navbar() {
   };
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 h-16 bg-white border-b border-gray-200 px-6 flex items-center justify-between">
-      {/* Left - Logo & Menu */}
+    <header className="fixed top-0 left-0 right-0 z-50 h-16 bg-[#f9f9f9] dark:bg-[#0f0f0f] border-b border-gray-200 dark:border-gray-800 flex items-center justify-between px-4 lg:px-6 shadow-sm">
+      {/* ===== Left - Logo & Menu ===== */}
       <div className="flex items-center space-x-4">
-        <IoMenu className="text-2xl cursor-pointer" />
+        <button
+          onClick={onToggleSidebar}
+          className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-[#020202] transition-colors duration-200"
+        >
+          <IoMenu className="text-2xl text-white" />
+        </button>
+
         <img
           src={logo}
-          alt="yt-logo"
+          alt="YouTube"
           className="w-24 cursor-pointer object-contain"
         />
       </div>
 
-      {/* Middle - Search Bar */}
-      <div className="flex items-center w-[40%]">
-        <div className="flex flex-1 border border-gray-400 rounded-l-full overflow-hidden">
+      {/* ===== Middle - Search Bar ===== */}
+      <div className="hidden sm:flex items-center w-[45%] max-w-[600px]">
+        <div className="flex flex-1 border border-gray-300 dark:border-gray-700 rounded-l-full overflow-hidden bg-white dark:bg-[#121212]">
           <input
             type="text"
             placeholder="Search"
-            className="w-full px-4 py-1 focus:outline-none"
+            className="w-full px-4 py-2 text-sm bg-transparent text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onKeyDown={searchQueryHandler}
           />
         </div>
+
         <button
-          className="px-4 py-[9px] border border-gray-400 border-l-0 rounded-r-full bg-gray-100 hover:bg-gray-200"
+          className="px-5 py-[10px] border border-gray-300 dark:border-gray-700 border-l-0 rounded-r-full bg-gray-100 dark:bg-[#222] hover:bg-gray-200 dark:hover:bg-[#333] transition-colors duration-200"
           onClick={() => searchQueryHandler("searchButton")}
         >
-          <CiSearch size={24} />
+          <CiSearch size={22} className="text-gray-700 dark:text-gray-300" />
         </button>
-        <IoMdMic
-          className="ml-3 rounded-full p-2 cursor-pointer hover:bg-gray-200 duration-200"
-          size={42}
-        />
+
+        <div className="ml-3 flex items-center justify-center bg-gray-100 dark:bg-[#222] hover:bg-gray-200 dark:hover:bg-[#333] transition-colors duration-200 rounded-full p-2 cursor-pointer">
+          <IoMdMic size={22} className="text-gray-700 dark:text-gray-300" />
+        </div>
       </div>
 
-      {/* Right - Actions */}
-      <div className="flex items-center space-x-5">
-        <RiVideoAddFill className="text-2xl cursor-pointer" />
-        <AiFillBell className="text-2xl cursor-pointer" />
-        <Avatar size="32" round={true} name="Profile" />
+      {/* ===== Right - Icons & Avatar ===== */}
+      <div className="flex items-center space-x-4 sm:space-x-5">
+        <RiVideoAddFill className="text-2xl cursor-pointer hover:bg-gray-200 dark:hover:bg-[#222] p-2 rounded-full transition" />
+        <AiFillBell className="text-2xl cursor-pointer hover:bg-gray-200 dark:hover:bg-[#222] p-2 rounded-full transition" />
+        <Avatar
+          size="36"
+          round={true}
+          name="Profile"
+          className="cursor-pointer shadow-sm"
+        />
       </div>
-    </div>
+    </header>
   );
 }
 
