@@ -5,50 +5,74 @@ import Time from "../loader/Time";
 import { abbreviateNumber } from "js-abbreviation-number";
 
 function SearchCard({ video }) {
+  const thumbnailUrl =
+    video.thumbnails?.[0]?.url ||
+    "https://via.placeholder.com/480x360?text=No+Thumbnail";
+  const authorAvatarUrl =
+    video.author?.avatar?.[0]?.url ||
+    "https://via.placeholder.com/40?text=Avatar";
+  const authorName = video.author?.title || "Unknown Channel";
+  const videoTitle = video.title || "No Title";
+  const descriptionSnippet = video.descriptionSnippet || "";
+  const views = video.stats?.views || 0;
+  const publishedTime = video.publishedTimeText || "";
+  const lengthSeconds = video.lengthSeconds;
+  const isVerified = video.author?.badges?.[0]?.type === "VERIFIED_CHANNEL";
+
   return (
-    <Link to={`/video/${video.videoId}`}>
-      <div className="flex flex-col md:flex-row mb-6 md:mb-4">
+    <Link to={`/video/${video.videoId}`} className="group">
+      <div className="flex flex-col md:flex-row mb-6 md:mb-4 cursor-pointer hover:bg-gray-100 p-2 rounded-lg transition-all duration-200">
         {/* Thumbnail */}
-        <div className="relative flex h-48 w-full md:w-80 rounded-xl overflow-hidden">
+        <div className="relative flex-shrink-0 w-full md:w-80 h-48 rounded-xl overflow-hidden bg-gray-200">
           <img
-            src={video.thumbnails[0].url}
-            alt={video.title}
-            className="w-full h-full object-cover"
+            src={thumbnailUrl}
+            alt={videoTitle}
+            className="w-full h-full object-cover rounded-xl group-hover:scale-105 transition-transform duration-300"
           />
-          {video.lengthSeconds && <Time time={video.lengthSeconds} />}
+          {lengthSeconds && (
+            <Time
+              time={lengthSeconds}
+              className="absolute bottom-2 right-2 bg-black bg-opacity-80 text-white text-xs px-1.5 py-0.5 rounded-sm"
+            />
+          )}
         </div>
 
         {/* Video Info */}
-        <div className="flex flex-col ml-0 md:ml-6 mt-4 md:mt-0 overflow-hidden">
-          <span className="text-lg md:text-xl font-semibold line-clamp-2">
-            {video.title}
-          </span>
+        <div className="flex flex-col ml-0 md:ml-4 mt-3 md:mt-0 overflow-hidden">
+          <h3 className="text-sm md:text-base font-semibold line-clamp-2 hover:underline">
+            {videoTitle}
+          </h3>
 
-          <span className="text-sm line-clamp-2 text-gray-600 mt-1">
-            {video.descriptionSnippet}
-          </span>
+          <p className="text-xs md:text-sm text-gray-600 mt-1 line-clamp-2">
+            {descriptionSnippet}
+          </p>
 
-          <div className="flex items-center mt-2">
+          <div className="flex items-center mt-3">
+            {/* Author Avatar */}
             <div className="flex-shrink-0 h-9 w-9 rounded-full overflow-hidden bg-gray-200">
               <img
                 className="h-full w-full object-cover"
-                src={video.author.avatar[0].url}
-                alt={video.author.title}
+                src={authorAvatarUrl}
+                alt={authorName}
               />
             </div>
 
             <div className="flex flex-col ml-3">
-              <span className="text-sm font-semibold flex items-center">
-                {video.author.title}
-                {video.author.badges?.[0]?.type === "VERIFIED_CHANNEL" && (
+              <span className="text-xs md:text-sm font-semibold flex items-center">
+                {authorName}
+                {isVerified && (
                   <BsFillCheckCircleFill className="ml-1 text-[12px] text-gray-500" />
                 )}
               </span>
 
-              <div className="flex text-sm text-gray-500 mt-1">
-                <span>{`${abbreviateNumber(video.stats.views || 0, 2)} views`}</span>
-                <span className="mx-1">·</span>
-                <span>{video.publishedTimeText}</span>
+              <div className="flex text-xs md:text-sm text-gray-500 mt-0.5">
+                <span>{`${abbreviateNumber(views, 1)} views`}</span>
+                {publishedTime && (
+                  <>
+                    <span className="mx-1">·</span>
+                    <span>{publishedTime}</span>
+                  </>
+                )}
               </div>
             </div>
           </div>

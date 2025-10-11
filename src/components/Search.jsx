@@ -10,45 +10,30 @@ function Search() {
 
   useEffect(() => {
     const fetchSearchResults = async () => {
+      if(!searchQuery) return;
       try {
         const data = await fetchData("search", {
           part: "snippet",
-          q: searchQuery,
+          q: encodeURIComponent(searchQuery),
           type: "video",
           maxResults: 30,
         });
 
         // Map data to match SearchCard props
-        const mappedResults = data.items.map((item) => ({
-          videoId: item.id.videoId,
-          title: item.snippet.title,
-          descriptionSnippet: item.snippet.description,
-          thumbnails: [item.snippet.thumbnails.high],
-          publishedTimeText: new Date(item.snippet.publishedAt).toLocaleDateString(
-            undefined,
-            { month: "short", day: "numeric", year: "numeric" }
-          ),
-          author: {
-            title: item.snippet.channelTitle,
-            avatar: [
-              {
-                url: `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                  item.snippet.channelTitle
-                )}&background=random`,
-              },
-            ],
-            badges: [{ type: "VERIFIED_CHANNEL" }], // optional
-          },
-          stats: {
-            views: item.statistics?.viewCount || 0, // optional, may need separate API call
-          },
-          lengthSeconds: item.contentDetails?.duration, // optional, may need separate API call
-        }));
+       
+      const mappedResults = data.items.map((item) => ({
+        videoId: item.id.videoId,
+        title: item.snippet.title,
+        description: item.snippet.description,
+        thumbnail: item.snippet.thumbnails.high?.url,
+        channelTitle: item.snippet.channelTitle,
+        publishedAt: new Date(item.snippet.publishedAt).toLocaleDateString(),
+      }));
 
-        setResults(mappedResults);
-      } catch (err) {
-        console.error("Error fetching search results:", err);
-      }
+      setResults(mappedResults);
+    } catch (err) {
+      console.error("Error fetching search results:", err);
+    }
     };
 
     fetchSearchResults();
