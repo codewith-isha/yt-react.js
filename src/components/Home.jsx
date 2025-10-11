@@ -18,7 +18,7 @@ const Home = () => {
       {/* ===== Main Content ===== */}
       <main className="ml-[250px] lg:ml-[280px] flex-1 min-h-screen overflow-y-auto pt-16 pb-10">
         {/* ===== Category List (Sticky Top) ===== */}
-        <div className="sticky top-16 z-10 bg-[#f9f9f9] dark:bg-[#0f0f0f] border-b border-gray-200 dark:border-gray-800 shadow-sm">
+        <div className=" z-10 bg-[#f9f9f9] dark:bg-[#0f0f0f] border-b border-gray-200 dark:border-gray-800 shadow-sm">
           <div className="px-4 py-2">
             <ListItems />
           </div>

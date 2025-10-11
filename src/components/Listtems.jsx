@@ -25,7 +25,7 @@ function ListItems() {
   ];
 
   return (
-    <div className="w-full bg-[#f9f9f9] dark:bg-[#0f0f0f] overflow-x-auto no-scrollbar">
+    <div className="w-full bg-[#f9f9f9] dark:bg-[#0f0f0f]  no-scrollbar">
       <div className="flex space-x-3 px-4 py-3">
         {categories.map((category) => (
           <button
