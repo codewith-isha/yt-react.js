@@ -6,12 +6,14 @@ import { abbreviateNumber } from "js-abbreviation-number";
 
 function SearchCard({ video }) {
   const thumbnailUrl =
-    video.thumbnails?.[0]?.url ||
+    video.thumbnail?.url ||
     "https://via.placeholder.com/480x360?text=No+Thumbnail";
+    //  console.log(`${thumbnailUrl}`)
+    console.log(video)
   const authorAvatarUrl =
     video.author?.avatar?.[0]?.url ||
     "https://via.placeholder.com/40?text=Avatar";
-  const authorName = video.author?.title || "Unknown Channel";
+  const authorName = video.channelTitle?.title || "Unknown Channel";
   const videoTitle = video.title || "No Title";
   const descriptionSnippet = video.descriptionSnippet || "";
   const views = video.stats?.views || 0;
@@ -21,14 +23,15 @@ function SearchCard({ video }) {
 
   return (
     <Link to={`/video/${video.videoId}`} className="group">
-      <div className="flex flex-col md:flex-row mb-6 md:mb-4 cursor-pointer hover:bg-gray-100 p-2 rounded-lg transition-all duration-200">
+      <div className="flex flex-col md:flex-row mb-6 md:mb-4 cursor-pointer hover: p-2 rounded-lg transition-all duration-200">
         {/* Thumbnail */}
-        <div className="relative flex-shrink-0 w-full md:w-80 h-48 rounded-xl overflow-hidden bg-gray-200">
+        <div className="relative flex-shrink-0 w-full md:w-80 h-48 rounded-xl overflow-hidden bg-black">
           <img
             src={thumbnailUrl}
             alt={videoTitle}
             className="w-full h-full object-cover rounded-xl group-hover:scale-105 transition-transform duration-300"
           />
+         
           {lengthSeconds && (
             <Time
               time={lengthSeconds}

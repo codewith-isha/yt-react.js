@@ -90,7 +90,7 @@ function Sidebar() {
         flex flex-col
       "
     >
-      <div className="flex-1 overflow-y-hidden hover:overflow-y-hidden pr-1">
+      <div className="flex-1 overflow-y-hidden hover:overflow-y-hidden pr-1 scrollbar-hide">
         {sections.map((section, index) => (
           <div key={index} className="mb-5">
             {section.title && (

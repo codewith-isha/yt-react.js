@@ -10,8 +10,9 @@ function Search() {
 
   useEffect(() => {
     const fetchSearchResults = async () => {
-      if(!searchQuery) return;
+      if (!searchQuery) return;
       try {
+        // 1️⃣ Get search results
         const data = await fetchData("search", {
           part: "snippet",
           q: encodeURIComponent(searchQuery),
@@ -19,21 +20,43 @@ function Search() {
           maxResults: 30,
         });
 
-        // Map data to match SearchCard props
-       
-      const mappedResults = data.items.map((item) => ({
-        videoId: item.id.videoId,
-        title: item.snippet.title,
-        description: item.snippet.description,
-        thumbnail: item.snippet.thumbnails.high?.url,
-        channelTitle: item.snippet.channelTitle,
-        publishedAt: new Date(item.snippet.publishedAt).toLocaleDateString(),
-      }));
+        const videoIds = data.items.map((item) => item.id.videoId).join(",");
 
-      setResults(mappedResults);
-    } catch (err) {
-      console.error("Error fetching search results:", err);
-    }
+        // 2️⃣ Get video details (views, duration, etc.)
+        const details = await fetchData("videos", {
+          part: "snippet,statistics,contentDetails",
+          id: videoIds,
+        });
+
+        // 3️⃣ Map to SearchCard format
+        const mappedResults = details.items.map((item) => ({
+          videoId: item.id,
+          title: item.snippet.title,
+          descriptionSnippet: item.snippet.description,
+          thumbnail: {
+            url: item.snippet.thumbnails.high?.url ||
+              "https://via.placeholder.com/480x360?text=No+Thumbnail",
+          },
+          channelTitle: { title: item.snippet.channelTitle },
+          author: {
+            avatar: [
+              {
+                url: `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                  item.snippet.channelTitle
+                )}&background=random`,
+              },
+            ],
+            badges: [{ type: "VERIFIED_CHANNEL" }],
+          },
+          stats: { views: item.statistics.viewCount || 0 },
+          publishedTimeText: new Date(item.snippet.publishedAt).toLocaleDateString(),
+          lengthSeconds: item.contentDetails?.duration || 0,
+        }));
+
+        setResults(mappedResults);
+      } catch (err) {
+        console.error("Error fetching search results:", err);
+      }
     };
 
     fetchSearchResults();
@@ -42,12 +65,12 @@ function Search() {
   return (
     <div className="flex">
       {/* Sidebar */}
-      <div className="w-64 h-screen fixed top-0 left-0 z-10 bg-white border-r border-gray-200 overflow-y-auto pt-16">
+      <div className="w-64 h-screen fixed top-0 left-0 z-10 bg-black border-r border-gray-200 overflow-y-auto pt-16">
         <Sidebar />
       </div>
 
       {/* Main Content */}
-      <div className="ml-64 flex-1 pt-16 h-screen overflow-y-auto bg-[#f9f9f9] p-4">
+      <div className="ml-64 flex-1 pt-16 h-screen overflow-y-auto bg-[#000000] text-white p-4">
         {results.length > 0 ? (
           <div className="grid grid-cols-1 gap-4">
             {results.map((video, index) => (

@@ -11,7 +11,7 @@ const Home = () => {
   return (
     <div className="flex bg-[#f9f9f9] text-gray-900 dark:bg-[#0f0f0f] dark:text-gray-100">
       {/* ===== Sidebar (Fixed) ===== */}
-      <aside className="fixed top-0 left-0 w-[250px] lg:w-[280px] h-screen border-r border-gray-200 dark:border-gray-800 bg-[#f9f9f9] dark:bg-[#0f0f0f] pt-16 z-20">
+      <aside className="fixed top-0 left-0 w-[250px] lg:w-[280px] h-screen border-r border-gray-200 dark:border-gray-800 bg-[#f9f9f9] dark:bg-[#0f0f0f] pt-16 z-20 ">
         <Sidebar />
       </aside>
 
