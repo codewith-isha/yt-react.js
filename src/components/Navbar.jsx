@@ -6,7 +6,7 @@ import { IoMdMic } from "react-icons/io";
 import { RiVideoAddFill } from "react-icons/ri";
 import { AiFillBell } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/logo.png";
+import logo from "../assets/youtubelogo.jpg";
 
 function Navbar({ onToggleSidebar }) {
   const [searchQuery, setSearchQuery] = useState("");
@@ -36,7 +36,7 @@ function Navbar({ onToggleSidebar }) {
         <img
           src={logo}
           alt="YouTube"
-          className="w-24 cursor-pointer object-contain"
+          className="w-24 cursor-pointer object-contain rounded-lg"
         />
       </div>
 
